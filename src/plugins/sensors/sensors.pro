@@ -21,7 +21,7 @@ qtHaveModule(simulator) {
     isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = simulator generic
 }
 
-linux {
+!emscripten:linux {
     isEmpty(SENSORS_PLUGINS): SENSORS_PLUGINS = linux iio-sensor-proxy generic
 }
 
@@ -32,6 +32,7 @@ contains(CONFIG, sensortag) {
         message("You have configured for sensortag, but Qt Bluetooth module was not found.")
     }
 }
+emscripten: SUBDIRS += html5
 
 contains(SENSORS_PLUGINS, dummy):SUBDIRS += dummy
 isEmpty(SENSORS_PLUGINS)|contains(SENSORS_PLUGINS, generic):SUBDIRS += generic
